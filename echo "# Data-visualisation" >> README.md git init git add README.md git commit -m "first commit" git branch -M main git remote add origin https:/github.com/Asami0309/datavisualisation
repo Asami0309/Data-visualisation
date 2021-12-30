@@ -9,7 +9,7 @@ f = open('europeana.csv', 'w')
 # Insert key replacing the -> ######
 
 response = json.load(urllib2.urlopen(
-    "http://www.europeana.eu/api/v2/search.json?start=1&rows=500&wskey=arthappis&query=COUNTRY:France&IMAGE_COLOUR=true"))
+    "http://www.europeana.eu/api/v2/search.json?start=1&rows=500&wskey=arthappis&query=COUNTRY:United+Kingdom"))
 
 # CSV header
 f.write("country,color,title,year,label,language,provider,score,type,link,image,dataProvider")
