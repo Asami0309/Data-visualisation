@@ -21,7 +21,7 @@ for item in response["items"]:
     if "colourpalette" in item:
         f.write(item["colourpalette"][0] + ",")
     else:
-        f.write("hm,")
+        f.write("test,")
     ###
     if "title" in item:
         f.write(item["title"][0].encode('utf-8').replace(",", "") + ",")
