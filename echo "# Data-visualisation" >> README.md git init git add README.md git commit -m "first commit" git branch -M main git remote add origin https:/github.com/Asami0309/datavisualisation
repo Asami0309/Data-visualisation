@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import json
+import urllib2
+
+f = open('europeana.csv', 'w')
+
+# Insert key replacing the -> ######
+
+response = json.load(urllib2.urlopen(
+    "http://www.europeana.eu/api/v2/search.json?start=1&rows=500&wskey=arthappis&query=COUNTRY:France&IMAGE_COLOUR=true"))
+
+# CSV header
+f.write("country,color,title,year,label,language,provider,score,type,link,image,dataProvider")
+f.write("\n")
+# Loop
+for item in response["items"]:
+    f.write(item["country"][0] + ",")
+    ###
+    if "colourpalette" in item:
+        f.write(item["colourpalette"][0] + ",")
+    else:
+        f.write("hm,")
+    ###
+    if "title" in item:
+        f.write(item["title"][0].encode('utf-8').replace(",", "") + ",")
+    else:
+        f.write("none,")
+    ###
+        if "title" in item:
+            f.write(item["title"][0].encode('utf-8').replace(",", "") + ",")
+        else:
+            f.write("none,")
+    ###
+    if "edmConceptPrefLabelLangAware" in item:
+        f.write(item["edmConceptPrefLabelLangAware"]["en"][0].replace(",", "") + ",")
+    else:
+        f.write("none,")
+    ###
+    if "language" in item:
+        f.write(item["language"][0] + ",")
+    else:
+        f.write("none,")
+    ###
+    if "provider" in item:
+        f.write(item["provider"][0] + ",")
+    else:
+        f.write("none,")
+    ###
+    if "score" in item:
+        f.write(str(item["score"]) + ",")
+    else:
+        f.write("none,")
+    ###
+    if "type" in item:
+        f.write(item["type"] + ",")
+    else:
+        f.write("none,")
+    ###
+    if "link" in item:
+        f.write(item["link"] + ",")
+    else:
+        f.write("none,")
+    ###
+    if "edmPreview" in item:
+        f.write(item["edmPreview"][0] + ",")
+    else:
+        f.write("none,")
+    ###
+    if "dataProvider" in item:
+        f.write(item["dataProvider"][0].encode('utf-8'))
+    else:
+        f.write("none")
+
+    f.write("\n")
+f.close()
